@@ -31,9 +31,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Setup NuGet API Key
-        run: dotnet nuget add source --username YourUsername --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name nuget "https://api.nuget.org/v3/index.json"
-
       - name: Calculate Full Version
         run: echo "FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION" >> $GITHUB_ENV
 
