@@ -1,0 +1,63 @@
+name: WindWalker.Api.Endpoints
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/WindWalker.Api.Endpoints/**'
+      - 'test/WindWalker.Api.Endpoints.Test.Unit/**'
+      - '.github/workflows/windwalker-api-endpoints.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/WindWalker.Api.Endpoints/**'
+      - 'test/WindWalker.Api.Endpoints.Test.Unit/**'
+
+env:
+  MAJOR_VERSION: 1
+  MINOR_VERSION: 0
+  PATCH_VERSION: ${{ github.run_number }}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup NuGet API Key
+        run: dotnet nuget add source --username YourUsername --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name nuget "https://api.nuget.org/v3/index.json"
+
+      - name: Calculate Full Version
+        run: echo "FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: dotnet restore src/WindWalker.Api.Endpoints/WindWalker.Api.Endpoints.csproj
+
+      - name: Build with Version
+        run: dotnet build src/WindWalker.Api.Endpoints/WindWalker.Api.Endpoints.csproj --configuration Release --no-restore -p:Version=${{ env.FULL_VERSION }}
+
+#      - name: Test
+#        run: dotnet test test/WindWalker.Api.Endpoints.Test.Unit/WindWalker.Api.Endpoints.Test.Unit.csproj --no-restore --verbosity normal
+
+      - name: Pack with Version
+        run: dotnet pack src/WindWalker.Api.Endpoints/WindWalker.Api.Endpoints.csproj --configuration Release --no-build -o ./nupkgs -p:Version=${{ env.FULL_VERSION }}
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "./nupkgs/*.nupkg" --source "nuget" --api-key ${{ secrets.NUGET_API_KEY }}
+        if: github.ref == 'refs/heads/main'
+
+      - name: Create Git Tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          PACKAGE_TAG="WindWalker-Api.Endpoints-${{ env.FULL_VERSION }}"
+          git tag -a $PACKAGE_TAG -m "Release $PACKAGE_TAG"
+          git push origin $PACKAGE_TAG
+        if: github.ref == 'refs/heads/main'
