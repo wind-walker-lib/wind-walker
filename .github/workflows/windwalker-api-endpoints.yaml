@@ -47,7 +47,7 @@ jobs:
 #        run: dotnet test test/WindWalker.Api.Endpoints.Test.Unit/WindWalker.Api.Endpoints.Test.Unit.csproj --no-restore --verbosity normal
 
       - name: Update .nuspec version
-        run: sed -i 's|<version>.*</version>|<version>${{ env.FULL_VERSION }}</version>|'  .nuspec
+        run: sed -i 's|<version>.*</version>|<version>${{ env.FULL_VERSION }}</version>|'  src/WindWalker.Api.Endpoints/.nuspec
 
       - name: Pack with Version
         run: dotnet pack src/WindWalker.Api.Endpoints/WindWalker.Api.Endpoints.csproj --configuration Release --no-build -o ./nupkgs -p:Version=${{ env.FULL_VERSION }}
