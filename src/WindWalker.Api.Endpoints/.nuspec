@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <!-- Package identifier. This should match your project name and be unique on NuGet -->
+        <id>WindWalker.Api.Endpoints</id>
+
+        <!-- Package version -->
+        <version>1.0.0</version>
+
+        <!-- Authors and owners. Update these with your name or organization -->
+        <authors>WindWalker</authors>
+        <owners>WindWalker</owners>
+
+        <!-- License and license acceptance. Set to true if you require users to accept a license -->
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+        <!-- A brief description of your package -->
+        <description>WindWalker Api Endpoints Package - A collection of helper classes for building AWS-based microservices in C#.</description>
+
+        <!-- Release notes for the package -->
+        <releaseNotes>Initial release.</releaseNotes>
+
+        <!-- Copyright information -->
+        <copyright>Copyright © 2025 WindWalker</copyright>
+
+        <!-- Tags help users find your package -->
+        <tags>windwalker microservices AWS C#</tags>
+
+        <!-- Project URL where users can find more information (e.g., your GitHub repository) -->
+        <projectUrl>https://github.com/Tuscan-Services/dotnet-library</projectUrl>
+
+        <!-- License URL (for MIT or your chosen license) -->
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    </metadata>
+    <files>
+        <!-- Include the compiled DLL in the package. Adjust the paths if necessary. -->
+        <file src="bin\Release\net8.0\WindWalker.Api.Endpoints.dll" target="lib\net8.0" />
+
+        <!-- Optionally include the PDB file for debugging -->
+        <file src="bin\Release\net8.0\WindWalker.Api.Endpoints.pdb" target="lib\net8.0" />
+    </files>
+</package>

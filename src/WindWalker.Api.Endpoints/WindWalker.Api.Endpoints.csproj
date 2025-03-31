@@ -6,8 +6,8 @@
         <Nullable>enable</Nullable>
         <LangVersion>default</LangVersion>
 
-        <Company>Tuscan Services, Inc</Company>
-        <PackageDescription>Tuscan Services Api Endpoints Package</PackageDescription>
+        <Company>WindWalker</Company>
+        <PackageDescription>WindWalker</PackageDescription>
         <RepositoryUrl>https://github.com/Tuscan-Services/dotnet-library</RepositoryUrl>
     </PropertyGroup>
 

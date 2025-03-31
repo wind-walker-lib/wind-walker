@@ -47,7 +47,7 @@ jobs:
         run: dotnet pack src/WindWalker.Api.Endpoints/WindWalker.Api.Endpoints.csproj --configuration Release --no-build -o ./nupkgs -p:Version=${{ env.FULL_VERSION }}
 
       - name: Publish to NuGet
-        run: dotnet nuget push "./nupkgs/*.nupkg" --source "nuget" --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push "./nupkgs/*.nupkg" --source "nuget.org" --api-key ${{ secrets.NUGET_API_KEY }}
         if: github.ref == 'refs/heads/main'
 
       - name: Create Git Tag
